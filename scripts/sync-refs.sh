@@ -31,9 +31,9 @@ for ((i=0; i<count; i++)); do
 
   if [ "${#sparse[@]}" -gt 0 ]; then
     # normalize: ensure leading slash for file-like entries to avoid git advice
-    for i in "${!sparse[@]}"; do
-      p="${sparse[$i]}"
-      if [[ "$p" != /* ]]; then sparse[$i]="/$p"; fi
+    for j in "${!sparse[@]}"; do
+      p="${sparse[$j]}"
+      if [[ "$p" != /* ]]; then sparse[$j]="/$p"; fi
     done
     # If any entry probably refers to a file (heuristic: contains a dot and doesn't end with /),
     # switch to non-cone mode. Cone mode only supports directories.
@@ -50,7 +50,7 @@ for ((i=0; i<count; i++)); do
       git -C "$dest" sparse-checkout set "${sparse[@]}"
     else
       git -C "$dest" sparse-checkout init --cone
-      for i in "${!sparse[@]}"; do sparse[$i]="${sparse[$i]#/}"; done
+      for j in "${!sparse[@]}"; do sparse[$j]="${sparse[$j]#/}"; done
       git -C "$dest" sparse-checkout set "${sparse[@]}"
     fi
   fi
