@@ -7,7 +7,7 @@ repos:
     url: https://github.com/openai/codex-universal.git
     branch: main
     # Includes individual files; script supports file-level sparse patterns.
-    sparse: ["README.md","Dockerfile"]
+    sparse: ["/README.md","/Dockerfile"]
   - name: harmony
     url: https://github.com/openai/harmony.git
     branch: main
