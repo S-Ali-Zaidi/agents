@@ -26,10 +26,15 @@ for ((i=0; i<count; i++)); do
     git -C "$dest" checkout -qf FETCH_HEAD
   else
     echo "[refs] cloning $name..."
-    git clone --depth 1 --no-tags --single-branch -b "$branch" "$url" "$dest"
+    git clone --depth 1 --no-tags --filter=blob:none --single-branch -b "$branch" "$url" "$dest"
   fi
 
   if [ "${#sparse[@]}" -gt 0 ]; then
+    # normalize: ensure leading slash for file-like entries to avoid git advice
+    for i in "${!sparse[@]}"; do
+      p="${sparse[$i]}"
+      if [[ "$p" != /* ]]; then sparse[$i]="/$p"; fi
+    done
     # If any entry probably refers to a file (heuristic: contains a dot and doesn't end with /),
     # switch to non-cone mode. Cone mode only supports directories.
     use_nocone=0
@@ -45,6 +50,7 @@ for ((i=0; i<count; i++)); do
       git -C "$dest" sparse-checkout set "${sparse[@]}"
     else
       git -C "$dest" sparse-checkout init --cone
+      for i in "${!sparse[@]}"; do sparse[$i]="${sparse[$i]#/}"; done
       git -C "$dest" sparse-checkout set "${sparse[@]}"
     fi
   fi
