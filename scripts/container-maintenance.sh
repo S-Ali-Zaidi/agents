@@ -9,6 +9,11 @@ if [ -f "manifests/references.yaml" ] && [ -f "scripts/sync-refs.sh" ]; then
 else
   echo "[maintenance] references manifest or sync script missing; skipping hydration"
 fi
+
+# Upgrade Codex CLI
+if command -v npm >/dev/null 2>&1; then
+  npm update -g @openai/codex >/dev/null 2>&1 || true
+fi
 if [ -f package.json ]; then
   (command -v pnpm >/dev/null && pnpm install --frozen-lockfile || true) || \
   (command -v yarn >/dev/null && yarn install --frozen-lockfile || true) || \
