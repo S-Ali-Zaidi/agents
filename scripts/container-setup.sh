@@ -12,6 +12,29 @@ else
   echo "[setup] references manifest or sync script missing; skipping hydration"
 fi
 
+# Install Codex CLI and configure authentication
+if command -v npm >/dev/null 2>&1; then
+  npm install -g @openai/codex >/dev/null 2>&1 || true
+fi
+
+if [ -n "${OPENAI_API_KEY:-}" ]; then
+  CODEX_HOME="$HOME/.codex"
+  mkdir -p "$CODEX_HOME"
+  cat >"$CODEX_HOME/auth.json" <<EOF
+{"OPENAI_API_KEY":"$OPENAI_API_KEY"}
+EOF
+  cat >"$CODEX_HOME/config.toml" <<'EOF'
+model = "gpt-5-mini"
+model_reasoning_effort = "medium"
+approval_policy = "never"
+sandbox_mode = "workspace-write"
+show_raw_agent_reasoning = true
+
+[sandbox_workspace_write]
+network_access = true
+EOF
+fi
+
 # Optional dep warming (noop if no lockfiles present)
 
 if [ -f package.json ]; then
