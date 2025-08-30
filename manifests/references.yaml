@@ -1,4 +1,36 @@
 repos:
+  - name: mcp-simple-arxiv
+    url: https://github.com/andybrandt/mcp-simple-arxiv.git
+    branch: master
+    sparse: []
+  - name: arxiv-mcp-server
+    url: https://github.com/blazickjp/arxiv-mcp-server.git
+    branch: main
+    sparse: []
+  - name: llama.cpp
+    url: https://github.com/ggml-org/llama.cpp.git
+    branch: master
+    sparse: ["docs","examples","server"]
+  - name: github-mcp-server
+    url: https://github.com/github/github-mcp-server.git
+    branch: main
+    sparse: []
+  - name: modelcontextprotocol
+    url: https://github.com/modelcontextprotocol/modelcontextprotocol.git
+    branch: main
+    sparse: []
+  - name: python-sdk
+    url: https://github.com/modelcontextprotocol/python-sdk.git
+    branch: main
+    sparse: []
+  - name: quickstart-resources
+    url: https://github.com/modelcontextprotocol/quickstart-resources.git
+    branch: main
+    sparse: []
+  - name: servers
+    url: https://github.com/modelcontextprotocol/servers.git
+    branch: main
+    sparse: []
   - name: codex
     url: https://github.com/openai/codex.git
     branch: main
@@ -6,21 +38,32 @@ repos:
   - name: codex-universal
     url: https://github.com/openai/codex-universal.git
     branch: main
-    # Includes individual files; script supports file-level sparse patterns.
-    sparse: ["/README.md","/Dockerfile"]
-  - name: harmony
-    url: https://github.com/openai/harmony.git
-    branch: main
-    sparse: ["docs","python/openai_harmony","src"]
+    sparse: []
   - name: gpt-oss
     url: https://github.com/openai/gpt-oss.git
     branch: main
     sparse: []
-  - name: llama.cpp
-    url: https://github.com/ggml-org/llama.cpp.git
-    branch: master
-    sparse: ["docs","examples","server"]
+  - name: harmony
+    url: https://github.com/openai/harmony.git
+    branch: main
+    sparse: ["docs","python/openai_harmony","src"]
   - name: openai-cookbook
     url: https://github.com/openai/openai-cookbook.git
     branch: main
     sparse: ["articles","examples"]
+  - name: mcp-obsidian
+    url: https://github.com/smithery-ai/mcp-obsidian.git
+    branch: main
+    sparse: []
+  - name: obsidian-mcp
+    url: https://github.com/StevenStavrakis/obsidian-mcp.git
+    branch: main
+    sparse: []
+  - name: arxiv-latex-mcp
+    url: https://github.com/takashiishida/arxiv-latex-mcp.git
+    branch: main
+    sparse: []
+  - name: unsloth
+    url: https://github.com/unslothai/unsloth.git
+    branch: main
+    sparse: []
