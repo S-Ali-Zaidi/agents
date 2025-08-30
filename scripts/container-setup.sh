@@ -7,7 +7,7 @@ if ! command -v gh >/dev/null 2>&1; then
   apt-get update -y && apt-get install -y gh
 fi
 if command -v gh >/dev/null 2>&1 && [ -n "${GH_TOKEN:-}" ]; then
-  echo "$GH_TOKEN" | gh auth login --with-token >/dev/null 2>&1 || true
+  gh auth login --with-token < <(echo "$GH_TOKEN") >/dev/null 2>&1 || true
 fi
 if ! command -v yq >/dev/null 2>&1; then
   curl -sSL "https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64" -o /usr/local/bin/yq && chmod +x /usr/local/bin/yq
