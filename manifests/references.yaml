@@ -68,3 +68,11 @@ repos:
     url: https://github.com/unslothai/unsloth.git
     branch: main
     sparse: []
+  - name: agents.md
+    url: https://github.com/openai/agents.md.git
+    branch: main
+    sparse: []
+  - name: openai-agents-python
+    url: https://github.com/openai/openai-agents-python.git
+    branch: main
+    sparse: []
