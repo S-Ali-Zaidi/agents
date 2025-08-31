@@ -16,10 +16,16 @@ if ! command -v gh >/dev/null 2>&1; then
 fi
 if command -v gh >/dev/null 2>&1 && [ -n "${GH_TOKEN:-}" ]; then
   tmpfile="$(mktemp)"
+  trap 'rm -f "$tmpfile"' EXIT
   chmod 600 "$tmpfile"
   printf '%s' "$GH_TOKEN" >"$tmpfile"
-  gh auth login --with-token <"$tmpfile" >/dev/null 2>&1 || true
+  if gh auth login --with-token <"$tmpfile" >/dev/null 2>&1; then
+    echo "[setup] GitHub CLI authenticated successfully."
+  else
+    echo "[setup] WARNING: GitHub CLI authentication failed. Continuing without authentication." >&2
+  fi
   rm -f "$tmpfile"
+  trap - EXIT
 fi
 if ! command -v yq >/dev/null 2>&1; then
   curl -sSL "https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64" -o /usr/local/bin/yq && chmod +x /usr/local/bin/yq
