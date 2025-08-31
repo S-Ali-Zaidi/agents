@@ -3,6 +3,30 @@ set -euo pipefail
 echo "[setup] start"
 if ! command -v git >/dev/null 2>&1; then apt-get update -y && apt-get install -y git; fi
 if ! command -v curl >/dev/null 2>&1; then apt-get update -y && apt-get install -y curl; fi
+if ! command -v gh >/dev/null 2>&1; then
+  apt-get update -y
+  apt-get install -y apt-transport-https ca-certificates gnupg
+  curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+    | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg >/dev/null
+  chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
+  echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" \
+    > /etc/apt/sources.list.d/github-cli.list
+  apt-get update -y
+  apt-get install -y gh
+fi
+if command -v gh >/dev/null 2>&1 && [ -n "${GH_TOKEN:-}" ]; then
+  tmpfile="$(mktemp)"
+  trap 'rm -f "$tmpfile"' EXIT
+  chmod 600 "$tmpfile"
+  printf '%s' "$GH_TOKEN" >"$tmpfile"
+  if gh auth login --with-token <"$tmpfile" >/dev/null 2>&1; then
+    echo "[setup] GitHub CLI authenticated successfully."
+  else
+    echo "[setup] WARNING: GitHub CLI authentication failed. Continuing without authentication." >&2
+  fi
+  rm -f "$tmpfile"
+  trap - EXIT
+fi
 if ! command -v yq >/dev/null 2>&1; then
   curl -sSL "https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64" -o /usr/local/bin/yq && chmod +x /usr/local/bin/yq
 fi
