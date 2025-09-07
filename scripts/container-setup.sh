@@ -27,6 +27,10 @@ if command -v gh >/dev/null 2>&1 && [ -n "${GH_TOKEN:-}" ]; then
   rm -f "$tmpfile"
   trap - EXIT
 fi
+# Disable gh paging to avoid hanging in non-interactive sessions
+if command -v gh >/dev/null 2>&1; then
+  gh config set pager cat >/dev/null 2>&1 || true
+fi
 if ! command -v yq >/dev/null 2>&1; then
   curl -sSL "https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64" -o /usr/local/bin/yq && chmod +x /usr/local/bin/yq
 fi

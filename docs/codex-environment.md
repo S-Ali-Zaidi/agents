@@ -6,6 +6,7 @@
 
 ## Environment variables
 - `OPENAI_API_KEY`: required for any OpenAI-compatible clients run inside the container.
+- `GH_TOKEN`: preloaded token for the GitHub CLI; the setup script authenticates using this token and disables paging to avoid hangs in non-interactive sessions.
 
 ## Setup script (runs on cold container after repo clone)
 ```bash
