@@ -13,7 +13,7 @@ This repo is the shared workspace for local and cloud agents. Heavy reference re
 - Image: `openai/codex-universal` (Ubuntu 24.04; Python/Node/Rust/Go/Ruby/etc. preinstalled)
 - Internet: enabled
 - Env vars: expects `OPENAI_API_KEY` at runtime (do **not** commit secrets)
-- GitHub CLI: preinstalled and authenticated via `GH_TOKEN` for read-only GitHub access
+- GitHub CLI: preinstalled and authenticated via `GH_TOKEN`/`GITHUB_TOKEN`/`GH_Token` for read-only GitHub access
 - Container caching: on
 - Setup script: `bash scripts/container-setup.sh`
 - Maintenance script: `bash scripts/container-maintenance.sh`
