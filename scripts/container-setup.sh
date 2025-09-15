@@ -14,11 +14,12 @@ if ! command -v gh >/dev/null 2>&1; then
   apt-get update -y
   apt-get install -y gh
 fi
-if command -v gh >/dev/null 2>&1 && [ -n "${GH_TOKEN:-}" ]; then
+GH_TOKEN_ENV="${GH_TOKEN:-${GITHUB_TOKEN:-${GH_Token:-}}}"
+if command -v gh >/dev/null 2>&1 && [ -n "$GH_TOKEN_ENV" ]; then
   tmpfile="$(mktemp)"
   trap 'rm -f "$tmpfile"' EXIT
   chmod 600 "$tmpfile"
-  printf '%s' "$GH_TOKEN" >"$tmpfile"
+  printf '%s' "$GH_TOKEN_ENV" >"$tmpfile"
   if gh auth login --with-token <"$tmpfile" >/dev/null 2>&1; then
     echo "[setup] GitHub CLI authenticated successfully."
   else
