@@ -44,6 +44,10 @@ repos:
     url: https://github.com/openai/gpt-oss.git
     branch: main
     sparse: []
+  - name: container
+    url: https://github.com/apple/container.git
+    branch: main
+    sparse: []
   - name: harmony
     url: https://github.com/openai/harmony.git
     branch: main
